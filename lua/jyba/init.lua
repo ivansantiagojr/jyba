@@ -19,7 +19,7 @@ local function read_config_file(json_config_file_path)
     return existing_data
 end
 
-M.run_cmd_on_save = function()
+function M.run_cmd_on_save()
     local project_name = vim.fn.getcwd()
     local file_path = vim.fn.stdpath('data') .. '/jyba.json'
 
@@ -47,7 +47,7 @@ api.nvim_create_autocmd("BufWritePost", {
 }
 )
 
-M.create_window = function()
+function M.create_window()
     if win_info then return end
 
     local width = 60
@@ -90,8 +90,7 @@ M.create_window = function()
     end
 end
 
-
-M.write_to_json = function(lines)
+function M.write_to_json(lines)
     local project_name = os.getenv('PWD')
     local file_path = vim.fn.stdpath('data') .. '/jyba.json'
 
@@ -120,7 +119,7 @@ M.write_to_json = function(lines)
     end
 end
 
-M.destroy_window = function()
+function M.destroy_window()
     if win_info then
         local opts = { force = true }
         api.nvim_buf_delete(win_info.bufnr, opts)
@@ -128,7 +127,7 @@ M.destroy_window = function()
     end
 end
 
-M.toggle_window = function()
+function M.toggle_window()
     if win_info then
         local bufnr = win_info.bufnr
         local lines = api.nvim_buf_get_lines(bufnr, 0, -1, false)
@@ -138,6 +137,5 @@ M.toggle_window = function()
         M.create_window()
     end
 end
-
 
 return M
